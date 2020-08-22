@@ -58,8 +58,12 @@ class _Router:
             return "Error: cannot have both data and json"
 
         request_url = urljoin(self.baseurl, endpoint)
-        return self.session.post(
-                request_url, data=data, files=files, json=json).json()
+        r = self.session.post(
+                request_url, data=data, files=files, json=json)
+        try:
+            return r.json()
+        except:
+            return r
 
     def delete(
             self,
